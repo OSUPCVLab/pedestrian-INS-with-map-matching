@@ -1,0 +1,56 @@
+clear all;
+close all;
+clc;
+
+data = load('sensor_data_test.txt');
+caccX = data(:,1);
+caccY = data(:,2);
+caccZ = data(:,3);
+raccX = data(:,4);
+raccY = data(:,5);
+raccZ = data(:,6);
+time = [0:1:length(caccX)-1]';
+
+figure(1);
+subplot(231);
+plot(time, caccX);
+grid on;
+title('calibrated accelerometer x');
+subplot(232);
+plot(time, caccY);
+grid on;
+title('calibrated accelerometer y');
+subplot(233);
+plot(time, caccZ);
+grid on;
+title('calibrated accelerometer z');
+subplot(234);
+plot(time, raccX);
+grid on;
+title('raw accelerometer x');
+subplot(235);
+plot(time, raccY);
+grid on;
+title('raw accelerometer y');
+subplot(236);
+plot(time, raccZ);
+grid on;
+title('raw accelerometer z');
+
+figure(2);
+plot(time, caccX, 'r-');
+hold on;
+plot(time, raccX, 'k-');
+hold off;
+title('calibrated vs raw acc x');
+grid on;
+legend('calibrated', 'raw');
+
+figure(3);
+plot(time, caccY, 'r-');
+hold on;
+plot(time, raccY, 'k-');
+hold off;
+title('calibrated vs raw acc Y');
+grid on;
+legend('calibrated', 'raw');

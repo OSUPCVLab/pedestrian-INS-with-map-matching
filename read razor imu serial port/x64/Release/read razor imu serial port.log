@@ -1,0 +1,14 @@
+﻿  GabrielTimer.cpp
+c:\users\koroglu.1\desktop\taha phd osu\navigation - map matching\razor imu (sparkfun)\razor-9dof-ahrs-master\visual studio projects\read razor imu serial port\GabrielTimer.h(23): warning C4244: 'initializing': conversion from 'double' to 'uint64_t', possible loss of data
+c:\users\koroglu.1\desktop\taha phd osu\navigation - map matching\razor imu (sparkfun)\razor-9dof-ahrs-master\visual studio projects\read razor imu serial port\GabrielTimer.h(24): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+c:\users\koroglu.1\desktop\taha phd osu\navigation - map matching\razor imu (sparkfun)\razor-9dof-ahrs-master\visual studio projects\read razor imu serial port\GabrielTimer.h(32): warning C4244: 'initializing': conversion from 'double' to 'uint64_t', possible loss of data
+c:\users\koroglu.1\desktop\taha phd osu\navigation - map matching\razor imu (sparkfun)\razor-9dof-ahrs-master\visual studio projects\read razor imu serial port\GabrielTimer.h(33): warning C4244: 'return': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+  main.cpp
+  RazorIMU.cpp
+RazorIMU.cpp(287): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Serial.cpp
+  Generating code
+  All 178 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  read razor imu serial port.vcxproj -> C:\Users\koroglu.1\Desktop\taha phd osu\navigation - map matching\Razor IMU (Sparkfun)\razor-9dof-ahrs-master\Visual Studio projects\read razor imu serial port\x64\Release\read razor imu serial port.exe
+  read razor imu serial port.vcxproj -> C:\Users\koroglu.1\Desktop\taha phd osu\navigation - map matching\Razor IMU (Sparkfun)\razor-9dof-ahrs-master\Visual Studio projects\read razor imu serial port\x64\Release\read razor imu serial port.pdb (Full PDB)
