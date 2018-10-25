@@ -1,0 +1,27 @@
+n = 2000;
+
+figure(3);
+subplot(3,2,1);
+plot(timestamp(1:n), acc_s(1,(1:n)),'k-');
+grid on;
+xlabel('Time (s)');
+subplot(3,2,3);
+plot(timestamp(1:n), acc_s(2,(1:n)),'k-');
+grid on;
+xlabel('Time (s)');
+subplot(3,2,5);
+plot(timestamp(1:n), acc_s(3,(1:n)),'k-');
+grid on;
+xlabel('Time (s)');
+subplot(3,2,2);
+plot(timestamp(1:n), gyro_s(1,(1:n)),'k-');
+grid on;
+xlabel('Time (s)');
+subplot(3,2,4);
+plot(timestamp(1:n), gyro_s(2,(1:n)),'k-');
+grid on;
+xlabel('Time (s)');
+subplot(3,2,6);
+plot(timestamp(1:n), gyro_s(3,(1:n)),'k-');
+grid on;
+xlabel('Time (s)');
