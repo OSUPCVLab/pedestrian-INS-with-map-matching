@@ -19,6 +19,11 @@ else
     pause();
     end
 end
+fprintf('Non-recursive Bayesian map-matching adjustable parameter.\n');
+fprintf('Enter variance of sensor likelihood distribution variance.\n');
+fprintf('Higher values yield rasterized map to dominate trajectory while smaller\n');
+fprintf('values result in Fischer error state EKF with ZUPT aid trajectory.\n');
+measSigmaX = input('Enter 25 for optimal results, also try 5 and 0.1 to see how rasterized map effect fades away: \n');
 
 dataTaha = load(gyroDataForBiasEstimationName);
 accData = dataTaha(:,1:3);
@@ -163,7 +168,7 @@ else if (choice == 2)
 end
 strideNumber = 0;
 
-%% Main Loop of FSICHER 9-state EKF with ZUPT aid
+%% Main Loop of FISCHER 9-state EKF with ZUPT aid
 for t = 2:data_size
     %%% Start INS (transformation, double integration) %%%
     dt = timestamp(t) - timestamp(t-1);
@@ -392,7 +397,8 @@ muPostTemp = zeros(2,strideNumber);
 sigmaPostTemp = zeros(2,strideNumber);
 finalEstimate = zeros(2,strideNumber);
 % std deviation of prior and measurement distributions are adjustable parameters
-measSigmaX = 25; measSigmaY = measSigmaX; % for sensor likelihood
+% measSigmaX = 0.1;
+measSigmaY = measSigmaX; % for sensor likelihood
 priorSigmaX = 40; priorSigmaY = priorSigmaX; % for prior distribution
 nx = 25; px = 25; ny = 25; py = 25;
 posterior = zeros(ny+py+1,nx+px+1,strideNumber);
