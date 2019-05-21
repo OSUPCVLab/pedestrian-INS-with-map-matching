@@ -9,7 +9,7 @@ s1 = line_slope(estimateKmin1,estimateKmin2);
 %pt2 = [pt2(1) - origin(1); pt2(2) - origin(2)];
 %origin = [0; 0];
 angle = atan(s1); angleDeg = rad2deg(angle);
-fprintf('%.2f\n', angleDeg);
+% fprintf('%.2f\n', angleDeg);
 % if (angle < 0)
 %     angle = pi - abs(angle);
 % end

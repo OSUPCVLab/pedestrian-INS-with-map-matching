@@ -1,19 +1,16 @@
 % modified from Fischer's tutorial - NGIMU
 
-clear all;
-close all;
+clear all; close all; clc;
 % Read data from csv files saved by NGIMU data capture software.
 % Data should include timestamps (seconds), 3 axis accelerations (m/s^2), 
 % 3 axis gyroscopic rates of turn (rad/s). Notice that gyro is in degree/s
 % and acc data is in terms of g while time is in seconds in NGIMU data.
 
-choice = input('Enter 1 for Bolz Hall, 2 for Caldwell, 3 for around PCV: ');
+choice = input('Enter 1 for Bolz Hall, 2 for Caldwell: ');
 if (choice == 1)
     gyroDataForBiasEstimationName = '../bolz_hall_gyro_data_for_bias_estimation_NGIMU_2.csv';
 else if (choice == 2)
     gyroDataForBiasEstimationName = '../caldwell_lab_gyro_data_for_bias_estimation_wired_57600_multiple.txt';
-    else if (choice == 3)
-            gyroDataForBiasEstimationName = '../around pcv lab multiple times/around_pcv_gyro_data_for_bias_estimation_wired_57600_multiple.txt';
     else
         fprintf('Invalid input!\n');
         pause();

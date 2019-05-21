@@ -530,7 +530,7 @@ for i = 1 : strideNumber % strideNumber
             if (choice2 == 6)
                 if ((i >= 8 && i <=20) || (i >= 33 && i <=45) || ...
                         (i >= 63 && i <=75) || (i >= 104 && i <=117))
-                    f_staticFloor(:,:,i) = 255;
+                    f_staticFloor(:,:,i) = 255; % disable static FP during room visits
                 end
             else if (choice2 == 9)
                 if ((i >= 19 && i <=34) || (i >= 54 && i <=67) || ...
@@ -693,15 +693,11 @@ plot(finalEstimate(1,:),finalEstimate(2,:), 'kx-','linewidth',2);
 %plot(finalEstimate(1,till),finalEstimate(2,till), 'ko-','linewidth',2);
 hold off;
 
-% figure(7);
-% plot(finalEstimate(1,:),finalEstimate(2,:),'bo-'); grid on;
-
-%%
 % activation of floor plan
+figure(17);
+hold on;
 y = ones(1,strideNumber);
 if (choice2 == 6 || choice2 == 9)
-    figure(6);
-    hold on;
     if (choice2 == 6)
         for i=1:strideNumber
             if ((i >= 8 && i <=20) || (i >= 33 && i <=45) || ...
@@ -718,15 +714,15 @@ if (choice2 == 6 || choice2 == 9)
             end
         end
     end
-    plot(1:strideNumber,y,'k-','linewidth',1.5);
-    grid on;
-    hold off;
-    xlabel('stride number');
-    %ylabel('Map-matching activation');
-    yticks([0 1]);
-    yticklabels({'map OFF','map ON'})
-    axis([0 strideNumber -0.1 1.1])
 end
+plot(1:strideNumber,y,'k-','linewidth',1.5);
+grid on;
+hold off;
+xlabel('stride number');
+%ylabel('Map-matching activation');
+yticks([0 1]);
+yticklabels({'map OFF','map ON'});
+axis([0 strideNumber -0.1 1.1]);
 %%
 figure(7); set(figure(7),'position',[1 59 1114 671]);
 set(gcf,'position',[564 61 927 670]);

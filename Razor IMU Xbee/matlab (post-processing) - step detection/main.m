@@ -287,7 +287,7 @@ meter2pixelConstant{2} = 200 / 9.7536; % unit conversion constant for bolz hall 
 meter2pixelConstant{3} = 400 / 18.288;
 meter2pixelConstant{4} = 200 / 9.7536;
 %%
-figure(12); % pedestrian trajectory on indoor environment map
+figure(12); clf;% pedestrian trajectory on indoor environment map
 set(gcf,'position',[564 61 927 670]);
 imshow(img);
 hold on;
@@ -295,17 +295,15 @@ if (choice == 1 || choice == 2 || choice == 4)
 % plot raw trajectory on the indoor map
 plot(startPixelCoordinates{choice}(1) + meter2pixelConstant{choice}*posY, ...
     startPixelCoordinates{choice}(2) - meter2pixelConstant{choice}*posX, 'r-','linewidth',2);
+plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
+    'ko','linewidth',2,'markerfacecolor','r','markersize',10);
+plot(276, 522, 'ks','linewidth',2,'markerfacecolor','g','markersize',10);
+mapMatching = input('enter 1 to show map-matching, 0 for no MM: ');
+if (mapMatching)
 % now plot measured distance with constraints
 newX = startPixelCoordinates{choice}(1) - meter2pixelConstant{choice}*sum(distance(1:steps(cornerSteps{choice}(1))));
 plot([startPixelCoordinates{choice}(1) newX], ...
     [startPixelCoordinates{choice}(2) startPixelCoordinates{choice}(2)], 'g-','linewidth',2);
-
-% plot start point
-plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
-    'ro','linewidth',2,'markerfacecolor','r');
-% plot end point
-plot(276, 522, 'bo','linewidth',2,'markerfacecolor','b');
-
 newY = startPixelCoordinates{choice}(2) - ...
     meter2pixelConstant{choice}*sum(distance(steps(cornerSteps{choice}(1))+1:steps(cornerSteps{choice}(2))));
 plot([newX newX], [startPixelCoordinates{choice}(2) newY], 'g-','linewidth',2);
@@ -329,28 +327,31 @@ oldX = newX;
 newX = oldX - ...
     meter2pixelConstant{choice}*sum(distance(steps(cornerSteps{choice}(6))+1:steps(cornerSteps{choice}(7))));
 plot([oldX newX], [newY newY], 'g-','linewidth',2);
+plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
+    'ko','linewidth',2,'markerfacecolor','r','markersize',10);
+% plot end point
+plot(276, 522, 'ks','linewidth',2,'markerfacecolor','g','markersize',10);
 h = legend('only ZUPT corrected','ZUPT corrected and floor plan aided', ...
     'start point', 'end point');
-set(h, 'interpreter','latex');
-% plot start point
-plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
-    'ro','linewidth',2,'markerfacecolor','r');
-% plot end point
-plot(276, 522, 'bo','linewidth',2,'markerfacecolor','b');
+else
+h = legend('pedestrian INS with na\"ive ZUPT','start', 'end');
 end
+set(h, 'interpreter','latex','fontsize',20);
+end
+
 if (choice == 3)
 % plot raw trajectory on the indoor map
 plot(startPixelCoordinates{choice}(1) + meter2pixelConstant{choice}*posY, ...
     startPixelCoordinates{choice}(2) - meter2pixelConstant{choice}*posX, 'r-','linewidth',2);
+% plot start point
+plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
+        'ko','linewidth',2,'markerfacecolor','r','markersize',10);
+mapMatching = input('enter 1 to show map-matching, 0 for no MM: ');
+if (mapMatching)
 % now plot measured distance with constraints
 newX = startPixelCoordinates{choice}(1) + meter2pixelConstant{choice}*sum(distance(1:steps(cornerSteps{choice}(1))));
 plot([startPixelCoordinates{choice}(1) newX], ...
     [startPixelCoordinates{choice}(2) startPixelCoordinates{choice}(2)], 'g-','linewidth',2);
-
-% plot start point
-plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
-        'ro','linewidth',2,'markerfacecolor','r');
-
 newY = startPixelCoordinates{choice}(2) - ...
     meter2pixelConstant{choice}*sum(distance(steps(cornerSteps{choice}(1))+1:steps(cornerSteps{choice}(2))));
 plot([newX newX], [startPixelCoordinates{choice}(2) newY], 'g-','linewidth',2);
@@ -370,13 +371,12 @@ oldY = newY;
 newY = oldY + ...
     meter2pixelConstant{choice}*sum(distance(steps(cornerSteps{choice}(5))+1:steps(cornerSteps{choice}(6))));
 plot([newX newX], [oldY newY], 'g-','linewidth',2);
-% plot start point
-plot(startPixelCoordinates{choice}(1), startPixelCoordinates{choice}(2), ...
-        'ro','linewidth',2,'markerfacecolor','r');
 h = legend('only ZUPT corrected','ZUPT corrected and floor plan aided', 'start and end point');
-set(h, 'interpreter','latex');
+else
+    h = legend('pedestrian INS with na\"ive ZUPT','start and end');
 end
-
+    set(h, 'interpreter','latex','fontsize',20);
+end
 hold off;
 
 %===========================================================================================

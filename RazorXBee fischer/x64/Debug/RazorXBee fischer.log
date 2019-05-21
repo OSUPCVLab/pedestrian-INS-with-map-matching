@@ -1,3 +1,14 @@
 ﻿  main.cpp
+  RazorIMU.cpp
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(226): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(228): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(241): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(243): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(278): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(280): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(296): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(298): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\koroglu.1\desktop\taha phd osu\pedestrian inertial navigation\razor imu (sparkfun)\razor-9dof-ahrs-master\microsoft visual studio c++\razorxbee fischer\razorimu.cpp(372): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   RazorXBee fischer.vcxproj -> C:\Users\koroglu.1\Desktop\taha phd osu\pedestrian inertial navigation\Razor IMU (Sparkfun)\razor-9dof-ahrs-master\Microsoft Visual Studio C++\RazorXBee fischer\x64\Debug\RazorXBee fischer.exe
   RazorXBee fischer.vcxproj -> C:\Users\koroglu.1\Desktop\taha phd osu\pedestrian inertial navigation\Razor IMU (Sparkfun)\razor-9dof-ahrs-master\Microsoft Visual Studio C++\RazorXBee fischer\x64\Debug\RazorXBee fischer.pdb (Partial PDB)

@@ -5,7 +5,7 @@
 % For best results use a foot-mounted inertial measurement unit with an
 % accelerometer range greater than 10g and 2a gyroscope range greater than
 % 900 degrees per second and at least 50 samples per second. The IMU is NOT
-% required to estimate or1ientations.
+% required to estimate orientations.
 
 clear all;
 close all;
@@ -14,16 +14,39 @@ close all;
 % 3 axis gyroscopic rates of turn (rad/s).
 
 choice = input('Enter 1 for Bolz Hall, 2 for Caldwell, 3 for around PCV: ');
-if (choice == 1)
+if (choice == 1 || choice == 2)
+    if (choice == 2)
+        fprintf('Do not enter 2 or 3 as they belong to trajectories ');
+        fprintf('visiting rooms.\nEnter 4 for a loop.\nEnter 5 for the ');
+        fprintf('trajectory starting from a point other than end point.\n');
+        fprintf('Enter 6 for 1+ loops.\nEnter 7 for 2+ loops.\n');
+        fprintf('Enter 8 for 3 loops.\nEnter 9 for a loop.\n');
+        fprintf('Enter 10 for a trajectory starting from room 251 door (1+ loop).\n');
+        fprintf('Enter 11 for a trajectory starting from room 251 door (a loop).\n');
+        fprintf('Enter 12 for a trajectory starting a random point (a loop).\n');
+        fprintf('Enter 13 for a trajectory starting a random point (a loop).\n');
+    else if (choice == 1)
+            fprintf('Enter 50 to start from room 233 (i.e., Zoltan''s room) door.\n');
+            fprintf('Enter 51 to start from room 238 (i.e., room with Einstein poster) door.\n');
+            fprintf('Enter 52 to start from room 225 (i.e., SPIN Lab.) door.\n');
+            fprintf('Enter 53 for a single traverse.\n');
+            fprintf('Enter 54 for a single traverse.\n');
+            fprintf('Enter 55 for a single traverse with 4 loops around PCV Lab.\n');
+            fprintf('Enter 56 for a single traverse.\n');
+            fprintf('Enter 57 or 58 for a single traverse with start-stop point a little different.\n');
+        end
+    end
     choice2 = input('Enter which traverse it is: ');
 end
+
 if (choice == 1)
     fileName = '../bolz_hall_gyro_data_for_bias_estimation_wired_57600_%i.txt';
     %gyroDataForBiasEstimationName = '../bolz_hall_gyro_data_for_bias_estimation_wired_57600_100Hz.txt';
     gyroDataForBiasEstimationName = sprintf(fileName, choice2);
 else if (choice == 2)
-    gyroDataForBiasEstimationName = '../caldwell_lab_gyro_data_for_bias_estimation_wired_57600_multiple.txt';
-    %gyroDataForBiasEstimationName = '../caldwell_lab_gyro_data_for_bias_estimation_wired_57600.txt';
+    %gyroDataForBiasEstimationName = '../caldwell_lab_gyro_data_for_bias_estimation_wired_57600_multiple_1.txt';
+    fileName = '../caldwell_lab_gyro_data_for_bias_estimation_wired_57600_%i.txt';
+    gyroDataForBiasEstimationName = sprintf(fileName, choice2);
     else if (choice == 3)
             gyroDataForBiasEstimationName = '../around pcv lab multiple times/around_pcv_gyro_data_for_bias_estimation_wired_57600_multiple.txt';
     else
@@ -63,8 +86,9 @@ if (choice == 1)
     %pedestrianTraverseName = '../bolz_hall_wired_57600_5.txt';
     %pedestrianTraverseName = '../bolz_hall_wired_57600.txt';
     else if (choice == 2)
-        pedestrianTraverseName = '../caldwell_lab_wired_57600_multiple.txt';
-        % pedestrianTraverseName = '../caldwell_lab_wired_57600.txt';
+        fileName = '../caldwell_lab_wired_57600_%i.txt';
+        pedestrianTraverseName = sprintf(fileName, choice2);
+        %pedestrianTraverseName = '../caldwell_lab_wired_57600_5.txt';
         else if (choice == 3)
                 pedestrianTraverseName = '../around pcv lab multiple times/around_pcv_wired_57600_multiple.txt';
     else
@@ -117,6 +141,21 @@ timestamp = timestamp'; % making it compatible w/ Fischer's code
 data_size = length(gyroX);
 acc_s = [accX accY accZ]'; % Accelerations in sensor frame.
 gyro_s = [gyroX gyroY gyroZ]'; % Rates of turn in sensor frame.
+% % crop samples from the last part of the data due to connection problems
+% % occurred in old wired IMU
+% if (choice == 2)
+%     if (choice2 == 6)
+%         data_size = 7120;
+%         acc_s = acc_s(:,1:data_size);
+%         gyro_s = gyro_s(:,1:data_size);
+%     else if (choice2 == 7)
+%             data_size = 13180;
+%             acc_s = acc_s(:,1:data_size);
+%             gyro_s = gyro_s(:,1:data_size);
+%         end
+%     end
+% end
+    
 %%
 clear accX accY accZ gyroX gyroY gyroZ dataTaha
 g = 9.8; % Gravity.
@@ -287,15 +326,15 @@ hold on;
 angle = 0;
 sf = 1; % scale factor
 if (choice == 1)
-    sf = 1.06; % 1.09 for bolz 1.11 it was 1.15 for _2 1.16 for _4 1.06 for _5 1.07 for _8
-    angle = 189; % 187 or 182. 189 for 8.
+    sf = 1.16; % 1.09 for bolz 1.11 it was 1.15 for _2 1.16 for _4 1.06 for _5 1.07 for _8
+    angle = 182; % 187 or 182. 189 for 8.
     if (choice2 == 6) % room traversal
         sf = 1.06; % or 1.06
         angle = 184;
     else if (choice2 == 7)
         sf = 1.06; angle = 187;
         else if (choice2 == 8)
-                sf = 1.06; angle = 190;
+                sf = 1.07; angle = 190;
             else if (choice2 == 9) % room traversal
                     sf = 1.05; angle = 189;
                 else if (choice2 == 10 )
@@ -312,6 +351,33 @@ if (choice == 1)
                                             sf = 1.06; angle = 189;
                                             else if (choice2 == 16)
                                             sf = 1.06; angle = 182;
+                                                else if (choice2 == 50)
+                                                        sf = 1.05; angle = 183;
+                                                    else if (choice2 == 51)
+                                                            sf = 1.05; angle = 270;
+                                                        else if (choice2 == 52)
+                                                                sf = 1.05; angle = 184;
+                                                            else if (choice2 == 53)
+                                                                    sf = 1.095; angle = 189;
+                                                                else if (choice2 == 54)
+                                                                        sf = 1.04; angle = 187;
+                                                                    else if (choice2 == 55)
+                                                                            sf = 1.05; angle = 183;
+                                                                        else if (choice2 == 56)
+                                                                                sf = 1.04; angle = 177;
+                                                                            else if (choice2 == 57)
+                                                                                    sf = 1.04; angle = 184;
+                                                                                else if (choice2 == 58)
+                                                                                        sf = 1.09; angle = 185;
+                                                                                    end
+                                                                                end
+                                                                            end
+                                                                        end
+                                                                    end
+                                                                end
+                                                            end
+                                                        end
+                                                    end
                                                 end
                                             end
                                     end
@@ -324,8 +390,50 @@ if (choice == 1)
         end
     end
 else if (choice == 2)
-    sf = 1.1; % scale factor
-    angle = 190; % 181   1892     190 for multiple traverse
+    sf = 1.07; % 1.08 for {_0,_4}, 1.07 for _5
+    angle = 180; % 181 for _0, 179 for _4, 92 for_5    
+    if (choice2 == 0)
+        sf = 1.09; angle = 181;
+    else if (choice2 == 1)
+            sf = 1.09; angle = 183;
+        else if (choice2 == 2)
+                sf = 1.08; angle = 180;
+            else if (choice2 == 3)
+                    sf = 1.08; angle = 180;
+                else if (choice2 == 4)
+                        sf = 1.08; angle = 179;
+                    else if (choice2 == 5)
+                            sf = 1.07; angle = 92;
+                        else if (choice2 == 6)
+                            sf = 1.11; angle = 180;
+                            else if (choice2 == 7)
+                                    sf = 1.09; angle = 190;
+                                else if (choice2 == 8)
+                                        sf = 1.07; angle = 185;
+                                    else if (choice2 == 9)
+                                            sf = 1.03; angle = 181;
+                                        else if (choice2 == 10)
+                                                sf = 1.04; angle = 180;
+                                            else if (choice2 == 11)
+                                                    sf = 1.07; angle = 179;
+                                                else if (choice2 == 12)
+                                                        sf = 1.05; angle = 90;
+                                                    else if (choice2 == 13)
+                                                            sf = 1.045; angle = 94;
+                                                        end
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
     else if (choice == 3)
         sf = 1.11; % scale factor1 1.09 for bolz 1.11 it was 1.18 for _2
         angle = 187; % Rotation angle required to achieve an aesthetic alignment of the figure.
@@ -384,6 +492,35 @@ startPixelCoordinates = cell(1,nOfBuildings); % start pixel coordinates of the p
 startPixelCoordinates{1} = [1364 + 1; 735 + 1];
 startPixelCoordinates{2} = [387 + 1; 1081 + 1];
 startPixelCoordinates{3} = [277 + 1; 525 + 1];
+if (choice == 1)
+    if (choice2 == 50)
+        startPixelCoordinates{1} = [622 + 1; 735 + 1];
+    else if (choice2 == 51)
+            startPixelCoordinates{1} = [179 + 1; 367 + 1];
+        else if (choice2 == 52)
+                startPixelCoordinates{1} = [472 + 1; 735 + 1];
+            else if (choice2 == 57 || choice2 == 58)
+                    startPixelCoordinates{1} = [1343 + 1; 735 + 1];
+                end
+            end
+        end
+    end
+else if (choice == 2)
+        if (choice2 == 5)
+            startPixelCoordinates{2} = [872 + 1; 949 + 1];
+        else if (choice2 == 10 || choice2 == 11)
+                startPixelCoordinates{2} = [739 + 1; 1081 + 1];
+            else if (choice2 == 12)
+                    startPixelCoordinates{2} = [1018 + 1; 692 + 1];
+                else if (choice2 == 13)
+                        startPixelCoordinates{2} = [1015 + 1; 524 + 1];
+                    end
+                end
+            end
+        end
+    end
+end
+
 meter2pixelConstant = cell(1,nOfBuildings);
 meter2pixelConstant{1} = 200 / 9.7536; % unit conversion constant for bolz hall traverse
 meter2pixelConstant{2} = 400 / 18.288;
@@ -420,10 +557,6 @@ plot(trajectoryPixels(1,ZUPTindexes),trajectoryPixels(2,ZUPTindexes), 'gx','line
 plot(trajectoryStridesPixels(1,:),trajectoryStridesPixels(2,:), 'bo','linewidth',2);
 hold off;
 
-figure(13); set(figure(13),'position',[481 14 1114 799]);
-set(gcf,'position',[564 61 927 670]);
-imshow(img);
-
 %% import static floor plan pdfs from previous studies
 load('static_floor_pdfs.mat');
 bolzPDF = bolzPDF + 1; caldwellPDF = caldwellPDF + 1;
@@ -436,6 +569,15 @@ delete bolzPDF caldwellPDF
 load('bolz_hall_pdf_updated.mat');
 staticFloorPDF{1} = double(bolzPDF)./255;
 delete bolzPDF
+
+figure(13); set(figure(13),'position',[1 50 1600 710]);
+subplot(1,2,1);
+imshow(img);
+set(gca, 'position', [0.01 0.10 0.49 0.95]);
+subplot(1,2,2);
+imshow(staticFloorPDF{choice},'colormap',jet(255));
+set(gca, 'YDir', 'reverse');
+set(gca, 'position', [0.50 0.10 0.49 0.95]);
 
 figure(3); set(gcf,'position',[371 151 535 422]);
 imshow(staticFloorPDF{choice},'colormap',jet(255));
@@ -494,6 +636,9 @@ for i = 1 : strideNumber % strideNumber
         end
         % manually switching off static floor map when room visit happens
         manual_switch = false;
+        if (choice == 2)
+            choice2 = 1;
+        end
         if (choice2 == 6 || choice2 >= 9) % traverse indexes with room traversals
             manual_switch = true;
         else
@@ -641,7 +786,7 @@ plot(finalEstimate(1,1),finalEstimate(2,1),'ro','linewidth',2,'markerfacecolor',
 plot(finalEstimate(1,end-30),finalEstimate(2,end-30), 'gs','linewidth',2,'markerfacecolor','g','markeredgecolor','k','markersize',10);
 end
 hold off;
-legend('INS with ZUPT aid','non-recursive estimation','start','stop');
+legend('error-state KF with ZUPT aid','non-recursive Bayesian map-matching','start','stop');
 set(legend,'fontsize',16,'interpreter','latex','location','northeast');
 
 %%

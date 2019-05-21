@@ -303,7 +303,7 @@ if (choice == 1)
                         else if (choice2 == 11)
                                 sf = 1.05; angle = 184;
                             else if (choice2 == 12)
-                                    sf = 1.06; angle = 182;
+                                    sf = 1.07; angle = 182;
                                 else if (choice2 == 13)
                                         sf = 1.06; angle = 187;
                                     else if (choice2 == 14)
@@ -712,7 +712,7 @@ plot(finalEstimate(1,strideNumber-17),finalEstimate(2,strideNumber-17),'ks','lin
 plot(finalEstimate(1,strideNumber-16),finalEstimate(2,strideNumber-16),'kh','linewidth',2,'markerfacecolor',[0 0.5 1],'markersize',16);
 plot(finalEstimate(1,strideNumber-15),finalEstimate(2,strideNumber-15),'kd','linewidth',2,'markerfacecolor',[0.5 0 0.5],'markersize',16);
 plot(finalEstimate(1,strideNumber-14),finalEstimate(2,strideNumber-14),'k^','linewidth',2,'markerfacecolor',[0 0.5 0],'markersize',16);
-plot(finalEstimate(1,18),finalEstimate(2,18),'k<','linewidth',2,'markerfacecolor','k','markersize',16);
+% plot(finalEstimate(1,18),finalEstimate(2,18),'k<','linewidth',2,'markerfacecolor','k','markersize',16);
 else (choice == 3)
 plot(mu(1,1:end-30),mu(2,1:end-30), 'b-.','linewidth',2); % this is IMU (EKF+DR+ZUPT) solution
 plot(finalEstimate(1,:),finalEstimate(2,:), 'r-','linewidth',2);
@@ -1080,7 +1080,7 @@ for i = lastStride:strideNumber % strideNumber
 end
 
 % the very first stride in the room gets least rotation and shift
-figure(11); set(figure(11),'position',[1 59 1114 671]);
+figure(11); % set(figure(11),'position',[1 59 1114 671]);
 set(gcf,'position',[564 61 927 670]);
 imshow(img); hold on;
 if (choice == 1 || choice == 2)
@@ -1097,7 +1097,28 @@ plot(finalEstimate(1,end-30),finalEstimate(2,end-30), 'gs','linewidth',2,'marker
 end
 % plot(finalEstimateRotatedTranslatedhkplus2(1,strideNumber-15),finalEstimateRotatedTranslatedhkplus2(2,strideNumber-15),'ko','markersize',16);
 % plot(finalEstimateRotatedTranslatedhkplus2(1,19),finalEstimateRotatedTranslatedhkplus2(2,19),'ko','markersize',16);
+% plot(finalEstimate(1,18),finalEstimate(2,18),'ko','markersize',16);
 hold off;
-legend('complementary KF','MHT with non-recursive map-matching','start','stop');
+legend('pedestrian INS','non-recursive Bayesian map-matching with MHT','start','stop');
 set(legend,'fontsize',16,'interpreter','latex','location','northwest');
-figure(11);xlim([660 1410]);ylim([548 1018]);
+figure(11); xlim([660 1410]); ylim([548 1018]);
+% figure(7);xlim([660 1410]);ylim([548 1018]);
+% activation of floor plan
+figure(17);
+hold on;
+y = ones(1,strideNumber);
+if (choice2 == 12)
+    for i=1:strideNumber
+        if (i >= 18)
+            y(i)=0;
+        end
+    end
+end
+plot(1:strideNumber,y,'k-','linewidth',1.5);
+grid on;
+hold off;
+xlabel('stride number');
+%ylabel('Map-matching activation');
+yticks([0 1]);
+yticklabels({'map OFF','map ON'});
+axis([0 strideNumber -0.1 1.1]);

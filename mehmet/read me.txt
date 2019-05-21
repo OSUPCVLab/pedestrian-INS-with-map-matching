@@ -1,3 +1,0 @@
-Enter 1 and select Bolz Hall.
-Then enter 8 for 8th trajectory.
-Then select non-recursive Bayesian map-matching algorithm parameter as explained at the screen.
